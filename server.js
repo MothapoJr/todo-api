@@ -33,6 +33,18 @@ app.get('/tasks/:id', (req, res) => {
   res.json(task);
 });
 
+app.post('/tasks', (req, res) => {
+  const { title } = req.body;
+
+  if (!title || title.trim() === '') {
+    return res.status(400).json({ error: "title is required and cannot be empty" });
+  }
+
+  const newTask = { id: nextId++, title, done: false };
+  tasks.push(newTask);
+  res.status(201).json(newTask);
+});
+
 app.listen(3000, () => {
   console.log('Server running at http://localhost:3000');
 });
