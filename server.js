@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
+const swaggerUi = require('swagger-ui-express');
+const openapiSpec = require('./openapi.json');
 app.use(express.json()); // lets Express read JSON request bodies
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(openapiSpec));
 
 let tasks = [
   { id: 1, title: "Buy milk", done: false },
